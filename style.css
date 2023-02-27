@@ -1,0 +1,54 @@
+.container {
+    width: fit-content;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.game-title {
+    margin: 50px 0;
+    font-size: 25px;
+}
+
+td {
+    height: 30px;
+    width: 30px;
+    background-color: teal;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+/* td:hover {
+    filter: brightness(110%);
+} */
+
+td:active {
+    filter: opacity(0.8);
+}
+
+.selected-style {
+    background: #50eb35;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 900;
+}
+
+.empty-style {
+    background: #c6c6c6;
+}
+
+.result {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 30px;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.new-game {
+    border-radius: 10px;
+    background-color: #cefe5d;
+    padding: 12px;
+    font-size: 28px;
+    display: none;
+    margin: 10px auto 0;
+}
