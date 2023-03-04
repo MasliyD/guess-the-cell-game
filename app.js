@@ -1,8 +1,21 @@
 'use strict';
 
-const table = document.querySelector('#table');
-const result = document.querySelector('#result');
-const newGameBtn = document.querySelector('#new-game');
+const table = document.querySelector('#table'),
+      result = document.querySelector('#result'),
+      newGameBtn = document.querySelector('#new-game');
+let   num = 7;
+
+// Timer
+const milisecondElement = document.querySelector('#timer-ms'),
+      secondElement = document.querySelector('#timer-s'),
+      minuteElement = document.querySelector('#timer-m'),
+      stop = document.querySelector('#stop'),
+      timerBox = document.querySelector('.timer-box');
+
+let   milisecond = 0,
+      second = 0,
+      minute = 0,
+      interval;
 
 function createTable() {
     for (let i = 0; i < 10; i++) {
@@ -37,14 +50,6 @@ function selectCells() {
     }
 }
 
-createTable();
-selectCells();
-
-const cells = document.querySelectorAll('.table-cell');
-let num = 8;
-
-table.addEventListener('click', (event) => cellClick(event));
-
 function cellClick(event) {
     const target = event.target;
     
@@ -60,9 +65,11 @@ function cellClick(event) {
                         num++;
                         console.log(num);
                         if (num == 10) {
-                            result.textContent = 'Victory!';
+                            result.textContent = `Victory! Time is ${timerBox.textContent}`;
+                            stopTimer();
                             result.style.backgroundColor = '#cefe5d';
                             newGameBtn.style.display = 'block';
+                            table.style.pointerEvents='none';
 
                             newGameBtn.addEventListener('click', () => {
                                 cells.forEach( item => {
@@ -70,21 +77,75 @@ function cellClick(event) {
                                     item.textContent = '';
                                 });
                                 selectCells();
-                                num = 8;
+                                num = 7;
                                 result.textContent = '';
                                 result.style.backgroundColor = '#fff';
                                 newGameBtn.style.display = 'none';
+                                table.style.pointerEvents='auto';
                             });
                         }
                     } else {
-                        console.log('empty');
                         item.classList.add('empty-style');
                     } 
                 }
                 
             }
         });
-
     }
 }
 
+function startTimer() {
+    milisecond++;
+
+    if (milisecond < 9) {
+        milisecondElement.innerText = `0${milisecond}`;
+    }
+    if (milisecond > 9) {
+        milisecondElement.innerText = milisecond;
+    }
+    if (milisecond > 99) {
+        second++;
+        secondElement.innerText = `0${second}`;
+        milisecond = 0;
+        milisecondElement.innerText = `0${milisecond}`;
+    }
+
+    if (second > 9) {
+        secondElement.innerText = second;
+    }
+    if (second > 59) {
+        minute++;
+        minuteElement.innerText = `0${minute}`;
+        second = 0;
+        secondElement.innerText = `0${second}`;
+    }
+
+    if (minute < 9) {
+        minuteElement.innerText = `0${minute}`;
+    }
+    if (minute > 9) {
+        minuteElement.innerText = minute;
+    }
+}
+
+function stopTimer() {
+    clearInterval(interval);
+    minute = 0;
+    second = 0;
+    milisecond = 0;
+    minuteElement.textContent = '00';
+    secondElement.textContent = '00';
+    milisecondElement.textContent = '00';
+}
+
+createTable();
+selectCells();
+
+const cells = document.querySelectorAll('.table-cell');
+
+table.addEventListener('click', () => {
+    clearInterval(interval);
+    interval = setInterval(startTimer, 10);
+});
+
+table.addEventListener('click', (event) => cellClick(event));

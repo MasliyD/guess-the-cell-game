@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     width: fit-content;
     max-width: 1024px;
@@ -5,8 +10,13 @@
 }
 
 .game-title {
-    margin: 50px 0;
+    margin: 30px 0;
     font-size: 25px;
+    text-align: center;
+}
+
+#table {
+    margin: 0 auto;
 }
 
 td {
@@ -15,11 +25,8 @@ td {
     background-color: teal;
     border-radius: 2px;
     cursor: pointer;
+    user-select: none;
 }
-
-/* td:hover {
-    filter: brightness(110%);
-} */
 
 td:active {
     filter: opacity(0.8);
@@ -51,4 +58,24 @@ td:active {
     font-size: 28px;
     display: none;
     margin: 10px auto 0;
+    cursor: pointer;
+}
+
+.timer-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    font-size: 20px;
+    background: #50eb35;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.timer-title {
+    margin-right: 20px;
+}
+
+#stop {
+    background-color: aqua;
 }
